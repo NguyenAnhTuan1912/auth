@@ -1,9 +1,9 @@
-import { DocsAPI } from "./docs";
+import { AuthAPI } from "./auth";
 
-const __ROOT__ = import.meta.env.SIMPLE_API_ROOT;
+const __ROOT__ = import.meta.env.API_ROOT;
 
-const __SimpleBases = {
-  Docs: __ROOT__ + "/docs"
+const __MainBases = {
+  Auth: __ROOT__ + "/auth"
 }
 
-export const Docs_API = new DocsAPI(__SimpleBases.Docs);
+export const Auth_API = new AuthAPI(__MainBases.Auth);

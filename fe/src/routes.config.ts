@@ -1,19 +1,17 @@
-export const RouteNames = {
-  Home: {
-    Path: "/home",
-    Name: "Home"
-  },
-  Document: {
-    Path: "/docs",
-    Name: "Docs"
-  },
-  TestAPI: {
-    Path: "/test",
-    Name: "Test API"
-  }
+type RouteName = {
+  path: string;
+  name: string;
+  canHideFromHeader?: boolean;
 }
 
-export const Actions = {
-  edit: "edit",
-  add: "add"
+export const RouteNames: {[K: string]: RouteName} = {
+  home: {
+    path: "/home",
+    name: "Home"
+  },
+  signup: {
+    path: "/sign-up",
+    name: "Sign-up",
+    canHideFromHeader: true
+  }
 }

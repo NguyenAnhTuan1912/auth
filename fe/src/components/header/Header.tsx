@@ -1,17 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GrGithub } from "react-icons/gr";
-import { IoSunny, IoMoon } from 'react-icons/io5';
-
-// Import objects
-import { Theme } from 'src/objects/Theme';
-
-// Import hooks
-import { useTheme } from 'src/hooks/useTheme';
 
 // Import components
 import Button from '../buttons/Button';
-import { openNavSideMenu } from '../sides/utils';
 
 // Import route names
 import { RouteNames } from 'src/routes.config';
@@ -20,16 +11,17 @@ import { RouteNames } from 'src/routes.config';
 import type { HeaderProps } from './Header.props';
 
 export default function Header(props: HeaderProps) {
-  const { theme, themeDispatchers } = useTheme();
-
   const NavItem_Elements = React.useMemo(() => {
     return Object.keys(RouteNames).map(function(key: string, index: number) {
-      if(index === 0) return;
+      if(
+        index === 0 ||
+        RouteNames[key].canHideFromHeader
+      ) return;
 
       return (
         <li key={key} className="mx-2 font-semibold hover:text-blue-500">
           {
-            <Link to={RouteNames[key as (keyof typeof RouteNames)].Path}>{RouteNames[key as (keyof typeof RouteNames)].Name}</Link>
+            <Link to={RouteNames[key].path}>{RouteNames[key].name}</Link>
           }
         </li>
       )
@@ -63,37 +55,11 @@ export default function Header(props: HeaderProps) {
                     }
                   </ul>
                 </nav>
-                <div className="flex px-3 justify-content">
-                  {
-                    theme.currentScheme === "light"
-                    ? (
-                      <Button
-                        buttonType="non_padding" colorType="background"
-                        onClick={() => themeDispatchers.changeScheme(Theme.Schemes.dark)}
-                        extendClassName="select-none"
-                      >
-                        <IoMoon className="text-2xl text-on-primary" />
-                      </Button>
-                    )
-                    : (
-                      <Button
-                        buttonType="non_padding" colorType="background"
-                        onClick={() => themeDispatchers.changeScheme(Theme.Schemes.light)}
-                        extendClassName="select-none"
-                      >
-                        <IoSunny className="text-2xl text-on-primary" />
-                      </Button>
-                    )
-                  }
-                  <a className="hidden ms-3 sm:block" href="https://github.com/NguyenAnhTuan1912/simple-api" target="_blank">
-                    <GrGithub className="text-2xl cursor-pointer hover:bg-salte-50" />
-                  </a>
-                </div>
                 <Button
                   colorType="onPrimary"
                   buttonType="normal"
                   extendClassName="flex p-2 me-3 rounded sm:hidden"
-                  onClick={() => openNavSideMenu()}
+                  onClick={() => alert("You clicked on menu")}
                 >
                   <span className="material-symbols-outlined text-primary bg-on-primary">more_vert</span>
                 </Button>
