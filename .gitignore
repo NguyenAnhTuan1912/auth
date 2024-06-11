@@ -11,3 +11,8 @@ dist
 stats.html
 
 .eslintcache
+
+# Others
+.env
+.env.*
+package-lock.json
