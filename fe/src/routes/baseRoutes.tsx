@@ -5,8 +5,6 @@ import MainLayout from "src/layouts/MainLayout";
 
 // Import pages
 import HomePage from "src/pages/HomePage";
-import TestAPIPage from "src/pages/TestAPIPage";
-import DocumentPage from "src/pages/DocumentPage";
 
 // Import routes configuration
 import { RouteNames } from "src/routes.config";
@@ -20,21 +18,13 @@ export const BASE_ROUTES: Array<RouteObject> = [
     element: <MainLayout />,
     children: [
       {
-        path: RouteNames.Home.Path,
+        path: RouteNames.home.path,
         element: <HomePage />
       },
       {
-        path: RouteNames.TestAPI.Path,
-        element: <TestAPIPage />
-      },
-      {
         path: "/",
-        element: <Navigate to={RouteNames.Home.Path} replace />
+        element: <Navigate to={RouteNames.home.path} replace />
       }
     ]
-  },
-  {
-    path: RouteNames.Document.Path + "/*",
-    element: <DocumentPage />
   }
 ]
