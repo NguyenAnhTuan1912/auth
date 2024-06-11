@@ -30,7 +30,7 @@ export default function AuthenticationLayout() {
 
   return (
     <div className="flex flex-col justify-center items-center p-4 w-full h-screen">
-      <div>
+      <div className="mb-4">
         <AuthTitle type={authActionType} />
       </div>
       <Outlet />
