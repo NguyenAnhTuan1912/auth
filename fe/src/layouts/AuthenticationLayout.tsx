@@ -12,6 +12,15 @@ function AuthTitle(props: { type?: string }) {
       )
     }
 
+    case "activate-account": {
+      return (
+        <>
+          <h1 className="text-center font-black text-4xl mb-2">ACTIVATE YOUR ACCOUNT</h1>
+          <p className="text-lg">You aren't our official user if you don't activate your account</p>
+        </>
+      )
+    }
+
     case "sign-in":
     default: {
       return (

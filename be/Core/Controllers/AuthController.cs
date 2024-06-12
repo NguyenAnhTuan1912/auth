@@ -127,5 +127,48 @@ namespace Core.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpPost("activate-account")]
+        public async Task<IActionResult> ActiveAccount([FromBody] ActivationDTModel activation)
+        {
+            HTTPResponseDataDTModel<Object> response = new HTTPResponseDataDTModel<Object>();
+
+            try
+            {
+                // 1. Check if code exist
+                CodeModel? code = await __db.Codes.FirstOrDefaultAsync(c => c.code.Equals(activation.code));
+                if (code == null)
+                    throw new Exception("Activation code does't exist");
+
+                // 2. Check if code is valid type
+                if (code.type != CodeType.ActiveEmailCode)
+                    throw new Exception("This code isn't used for active account");
+
+                // 3. Check code expiration
+                if (code.expire <= DateTimeUtil.GetUnixTimestamp())
+                    throw new Exception("Your activation code is expired");
+
+                UserModel user = await __db.Users.FirstOrDefaultAsync(u => u.username.Equals(activation.username));
+                user.isActive = true;
+
+                // Remove code from table and save change
+                // Update user and save change
+                __db.Codes.Remove(code);
+                __db.Users.Update(user);
+                await __db.SaveChangesAsync();
+
+                response.code = StatusCodes.Status200OK;
+                response.setSuccess("You activate your account successfully", null);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.code = StatusCodes.Status400BadRequest;
+                response.setError(ex.Message, null);
+
+                return BadRequest(response);
+            }
+        }
     }
 }

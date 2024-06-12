@@ -11,7 +11,12 @@ export const RouteNames: {[K: string]: RouteName} = {
   },
   signup: {
     path: "/sign-up",
-    name: "Sign-up",
+    name: "Sign Up",
+    canHideFromHeader: true
+  },
+  activateAccount: {
+    path: "/activate-account",
+    name: "Acctivate Account",
     canHideFromHeader: true
   }
 }
