@@ -16,20 +16,19 @@ import LoadingIndicator from '../loading_indicator/LoadingIndicator';
 import { openSnackbar } from '../modal_items/utils';
 
 // Import route configs
-import { RouteNames } from 'src/routes.config';
+// import { RouteNames } from 'src/routes.config';
 
 // Import data for form building
-import __SignupFormContent__ from "src/assets/forms/signup_form.json" 
+import __ActivateAccountFormContent__ from "src/assets/forms/activate_account_form.json" 
 
 // Import types
-import type { RegisterUser } from 'src/objects/User';
 import type { FormPromptDataProps } from 'src/types/form';
 
-export default function Signup() {
-  const [isSigningup, setIsSigningup] = React.useState(false);
+export default function ActivateAccount() {
+  const [isActivating, setIsActivating] = React.useState(false);
   const navigate = useNavigate();
   const __FormContentData__ = React.useMemo(function() {
-    return __SignupFormContent__ as any as FormPromptDataProps;
+    return __ActivateAccountFormContent__ as any as FormPromptDataProps;
   }, []);
   
   return (
@@ -37,24 +36,19 @@ export default function Signup() {
       className="block max-w-sm w-full"
       data={__FormContentData__}
       handleOnSubmit={function(formData) {
-        const { username, password, confirmedPassword, email } = formData;
-        if(password !== confirmedPassword) {
+        const { code } = formData;
+        const username = BrowserStorageUtils.getItem<string>(SessionStorageKeys.username);
+
+        if(!username) {
+          openSnackbar({ headerColor: "error", content: "Username is required" });
+          navigate("/");
           return;
         }
 
-        const registra: RegisterUser = {
-          username,
-          password,
-          confirmedPassword,
-          email
-        };
-
-        console.log("Registra: ", registra);
-        
-        setIsSigningup(true);
+        setIsActivating(true);
 
         Auth_API
-          .signupAsync(registra)
+          .activateAccountAsync({ username, code })
           .then(result => {
             let message = "";
             let snackbarHeaderColor = "";
@@ -66,11 +60,11 @@ export default function Signup() {
             if(result.success) {
               message = result.success.message as string;
               snackbarHeaderColor = "success";
-              BrowserStorageUtils.setItem(SessionStorageKeys.username, username);
             }
 
             openSnackbar({ headerColor: snackbarHeaderColor as any, content: message });
-            if(result.success) navigate(RouteNames.activateAccount.path);
+            navigate("/");
+            setIsActivating(false);
           })
       }}
       actionElements={
@@ -78,12 +72,12 @@ export default function Signup() {
           key="submit"
           extendClassName="flex items-center justify-center w-full"
           type="submit"
-          disabled={isSigningup}
+          disabled={isActivating}
         >
           {
-            isSigningup
+            isActivating
               ? <LoadingIndicator text={<p className="text-on-primary ms-3">Vui lòng chờ...</p>} />
-              : "Đăng ký"
+              : "Kích hoạt tài khoản"
           }
         </Button>
       }

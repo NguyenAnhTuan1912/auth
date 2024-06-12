@@ -8,13 +8,11 @@ const localStorageKey = "lcl";
 const sessionStorageKey = "ssn";
 
 export const LocalStorageKeys = {
-  "player": `_${localStorageKey}$_ply`,
-  "settings": `_${localStorageKey}$_sti`
+  "username": `_${localStorageKey}$_une`
 };
 
 export const SessionStorageKeys = {
-  "langText": `_${sessionStorageKey}$_lgtxt`,
-  "langAbout": `_${sessionStorageKey}$_lgabt`
+  "username": `_${sessionStorageKey}$_une`,
 };
 
 type UpdateItemOptionsType = UpdateObjectOptionsType;
@@ -44,8 +42,8 @@ function getSessionStorageKey(key: string): string {
  * @returns 
  */
 function __checkKey(keyCollection: any, key: string) {
-  for(let k in keyCollection) {
-    if(!!(keyCollection[k] === key)) return true;
+  for(const k in keyCollection) {
+    if(!(keyCollection[k] === key)) return true;
   }
   return false;
 }
@@ -56,7 +54,7 @@ function __checkKey(keyCollection: any, key: string) {
  * @returns 
  */
 function __getItem<T>(storage: Storage, key: string) {
-  let dataString = storage.getItem(key);
+  const dataString = storage.getItem(key);
 
   if(!dataString) return null;
 
@@ -96,7 +94,7 @@ function __updateItem<T>(
   keys: any,
   key: string,
   data: T,
-  opt: UpdateItemOptionsType
+  opt?: UpdateItemOptionsType
 ) {
   if(!data || !__checkKey(keys, key)) return;
 
@@ -105,7 +103,7 @@ function __updateItem<T>(
   if(!storedData) {
     __setItem(storage, key, data);
     return data;
-  };
+  }
 
   storedData = ObjectUtils.updateObject(storedData, data, opt);
 

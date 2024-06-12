@@ -12,3 +12,15 @@ GO
 -- Select 100 Users
 SELECT TOP 100 *
 FROM dbo.users
+
+-- Select 100 Codes
+SELECT TOP 100 *
+FROM dbo.codes
+
+-- Delete all Users
+TRUNCATE TABLE dbo.users
+GO
+
+-- Delete all Codes
+TRUNCATE TABLE dbo.codes
+GO

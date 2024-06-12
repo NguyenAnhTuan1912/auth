@@ -6,6 +6,7 @@ import AuthenticationLayout from 'src/layouts/AuthenticationLayout';
 
 // Import components
 import Signup from 'src/components/signup/Signup';
+import ActivateAccount from 'src/components/activate_account/ActivateAccount';
 
 // Import route config
 import { RouteNames } from 'src/routes.config';
@@ -19,6 +20,10 @@ export default function AuthenticationRoutes() {
         {
           path: RouteNames.signup.path,
           element: <Signup />
+        },
+        {
+          path: RouteNames.activateAccount.path,
+          element: <ActivateAccount />
         },
         {
           path: "/",

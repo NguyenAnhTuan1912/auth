@@ -1,0 +1,10 @@
+{
+  "CODE": {
+    "type": "text",
+    "name": "code",
+    "props": {
+      "placeholder": "Mã kích hoạt",
+      "required": true
+    }
+  }
+}

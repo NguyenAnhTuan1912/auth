@@ -53,14 +53,14 @@ function toString(o: {[key: string]: any}, opt?:ToStringOptions) {
  * @param opt 
  * @returns 
  */
-function updateObject(o: any, data: any, opt: UpdateObjectOptionsType) {
+function updateObject(o: any, data: any, opt?: UpdateObjectOptionsType) {
   for(const key in data) {
     if(typeof data[key] === "object" && typeof o[key] === "object") {
       updateObject(o[key], data[key], opt);
       continue;
     }
 
-    if(opt.canOverrideValues === true) o[key] = data[key];
+    if(opt && opt.canOverrideValues === true) o[key] = data[key];
     else if(!(o[key])) {
       o[key] = data[key];
     }
