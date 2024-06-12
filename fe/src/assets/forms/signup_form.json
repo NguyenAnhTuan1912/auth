@@ -1,0 +1,35 @@
+{
+  "USERNAME": {
+    "type": "text",
+    "name": "username",
+    "props": {
+      "placeholder": "Tài khoản của bạn",
+      "required": true
+    }
+  },
+  "EMAIL": {
+    "type": "email",
+    "name": "email",
+    "props": {
+      "placeholder": "Email",
+      "required": true
+    }
+  },
+  "PASSWORD": {
+    "type": "password",
+    "name": "password",
+    "props": {
+      "placeholder": "Mật khẩu của bạn",
+      "required": true,
+      "pattern": "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+    }
+  },
+  "CONFIRM_PASSWORD": {
+    "type": "password",
+    "name": "confirmedPassword",
+    "props": {
+      "placeholder": "Xác nhận lại mật khẩu",
+      "required": true
+    }
+  }
+}

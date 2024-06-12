@@ -1,3 +1,4 @@
+.vs
 node_modules
 *.log
 
@@ -11,3 +12,12 @@ dist
 stats.html
 
 .eslintcache
+
+# Others
+.env
+.env.*
+package-lock.json
+
+# ASP.NET
+bin
+obj
