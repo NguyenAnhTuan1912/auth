@@ -8,6 +8,7 @@ namespace Core.Contexts
     {
         public MainDBContext(DbContextOptions<MainDBContext> options) : base(options) { }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<CodeModel> Codes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -15,6 +16,7 @@ namespace Core.Contexts
 
             // Create Users Table
             builder.Entity<UserModel>().ToTable("users");
+            builder.Entity<CodeModel>().ToTable("codes");
         }
     }
 }
