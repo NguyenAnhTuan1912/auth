@@ -1,3 +1,4 @@
+.vs
 node_modules
 *.log
 
@@ -16,3 +17,7 @@ stats.html
 .env
 .env.*
 package-lock.json
+
+# ASP.NET
+bin
+obj
